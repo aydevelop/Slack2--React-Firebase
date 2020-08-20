@@ -7,6 +7,7 @@ import Register from './components/Auth/Register'
 import * as serviceWorker from './serviceWorker'
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import 'semantic-ui-css/semantic.min.css'
 
 ReactDOM.render(
   <React.StrictMode>
