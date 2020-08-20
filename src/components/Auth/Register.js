@@ -9,6 +9,32 @@ class Register extends React.Component {
     email: '',
     password: '',
     passwordConfirmation: '',
+    errors: [],
+  }
+
+  isFormValid = () => {
+    const check =
+      !this.state.username.length ||
+      !this.state.email.length ||
+      !this.state.password.length ||
+      !this.state.passwordConfirmation.length
+
+    if (check) {
+      const error = { msg: 'Fill all fields' }
+      this.setState({ errors: error })
+      return false
+    }
+
+    const check2 =
+      this.state.password.length < 6 ||
+      this.state.passwordConfirmation.length < 6 ||
+      this.state.password !== this.state.passwordConfirmation
+
+    if (check2) {
+      const error = { msg: 'Password is invalid' }
+      this.setState({ errors: error })
+      return false
+    }
   }
 
   handleChange = (e) => {
@@ -19,6 +45,10 @@ class Register extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    if (!this.isFormValid()) {
+      return
+    }
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -90,6 +120,9 @@ class Register extends React.Component {
               </Button>
             </Segment>
           </Form>
+          {this.state.errors.length !== 0 && (
+            <Message error>{this.state.errors.msg}</Message>
+          )}
           <Message>
             Already a user? <Link to='/login'>Login</Link>
           </Message>
