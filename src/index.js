@@ -14,6 +14,7 @@ import Login from './components/Auth/Login'
 import Register from './components/Auth/Register'
 import rootReducer from './reducers/index'
 import { setUser } from './actions'
+import Spinner from './components/Spinner'
 
 class Root extends React.Component {
   componentDidMount() {
@@ -26,7 +27,9 @@ class Root extends React.Component {
   }
 
   render() {
-    return (
+    return this.props.isLoading ? (
+      <Spinner />
+    ) : (
       <Switch>
         <Route exact path='/' component={App} />
         <Route path='/login' component={Login} />
@@ -36,8 +39,14 @@ class Root extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    isLoading: state.user.isLoading,
+  }
+}
+
 const store = createStore(rootReducer, composeWithDevTools())
-const RootWithAuth = withRouter(connect(null, { setUser })(Root))
+const RootWithAuth = withRouter(connect(mapStateToProps, { setUser })(Root))
 
 ReactDOM.render(
   <Provider store={store}>
