@@ -9,7 +9,8 @@ class Register extends React.Component {
     email: '',
     password: '',
     passwordConfirmation: '',
-    errors: [],
+    errors: { msg: '' },
+    loading: false,
   }
 
   isFormValid = () => {
@@ -35,6 +36,8 @@ class Register extends React.Component {
       this.setState({ errors: error })
       return false
     }
+
+    return true
   }
 
   handleChange = (e) => {
@@ -49,14 +52,17 @@ class Register extends React.Component {
       return
     }
 
+    this.setState({ errors: {}, loading: true })
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((createUser) => {
         console.log('User::: ' + createUser)
+        this.setState({ loading: false })
       })
       .catch((err) => {
         console.log(err)
+        this.setState({ loading: false })
       })
   }
 
@@ -115,12 +121,13 @@ class Register extends React.Component {
                 value={passwordConfirmation}
               />
 
-              <Button color='orange' fluid size='large'>
+              <Button disabled={this.loading} color='orange' fluid size='large'>
                 Submit
               </Button>
             </Segment>
           </Form>
-          {this.state.errors.length !== 0 && (
+
+          {this.state.errors.msg && (
             <Message error>{this.state.errors.msg}</Message>
           )}
           <Message>

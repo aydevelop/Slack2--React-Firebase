@@ -10,15 +10,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Switch>
-        <Route exact path='/' component={App} />
-        <Route path='/login' component={Login} />
-        <Route path='/register' component={Register} />
-      </Switch>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Switch>
+      <Route exact path='/' component={App} />
+      <Route path='/login' component={Login} />
+      <Route path='/register' component={Register} />
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('root')
 )
 
