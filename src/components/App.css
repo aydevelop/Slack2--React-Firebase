@@ -3,3 +3,8 @@ body,
 .app {
   height: 100vh;
 }
+
+.app {
+  border: 10px solid #7b1fa2;
+  padding: 30px 40px;
+}
