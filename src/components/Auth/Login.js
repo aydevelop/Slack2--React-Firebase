@@ -21,12 +21,8 @@ class Login extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    this.setState({ loading: true })
 
-    if (!this.state.email || !this.state.password) {
-      return
-    }
-
-    this.setState({ errors: {}, loading: true })
     firebase
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -36,8 +32,8 @@ class Login extends React.Component {
       .catch((err) => {
         const error = { msg: err?.message }
         this.setState({ errors: error })
-        this.setState({ loading: false })
       })
+      .finally(this.setState({ loading: false }))
   }
 
   render() {

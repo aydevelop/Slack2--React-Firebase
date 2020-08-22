@@ -8,3 +8,16 @@ export const setUser = (user) => {
     },
   }
 }
+
+export const clearUser = () => {
+  return {
+    type: actionTypes.CLEAR_USER,
+  }
+}
+
+export const setLoading = (flag) => {
+  return {
+    type: actionTypes.SET_LOADING,
+    payload: flag,
+  }
+}

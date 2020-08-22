@@ -13,7 +13,7 @@ import App from './components/App'
 import Login from './components/Auth/Login'
 import Register from './components/Auth/Register'
 import rootReducer from './reducers/index'
-import { setUser } from './actions'
+import { setUser, clearUser, setLoading } from './actions'
 import Spinner from './components/Spinner'
 
 class Root extends React.Component {
@@ -22,6 +22,10 @@ class Root extends React.Component {
       if (user) {
         this.props.setUser(user)
         this.props.history.push('/')
+      } else {
+        this.props.setLoading(true)
+        this.props.history.push('/login')
+        this.props.clearUser()
       }
     })
   }
@@ -46,7 +50,9 @@ const mapStateToProps = (state) => {
 }
 
 const store = createStore(rootReducer, composeWithDevTools())
-const RootWithAuth = withRouter(connect(mapStateToProps, { setUser })(Root))
+const RootWithAuth = withRouter(
+  connect(mapStateToProps, { setUser, clearUser, setLoading })(Root)
+)
 
 ReactDOM.render(
   <Provider store={store}>
