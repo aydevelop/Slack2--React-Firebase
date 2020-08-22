@@ -32,6 +32,10 @@ class Channels extends React.Component {
     })
   }
 
+  componentWillUnmount() {
+    this.state.channelsRef.off()
+  }
+
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value })
   }
