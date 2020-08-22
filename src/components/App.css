@@ -7,3 +7,7 @@ body,
 .app {
   padding: 20px;
 }
+
+.menu {
+  color: red !important;
+}
