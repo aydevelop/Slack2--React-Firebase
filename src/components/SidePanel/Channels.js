@@ -12,6 +12,12 @@ class Channels extends React.Component {
     channelsRef: firebase.database().ref('channels'),
   }
 
+  componentDidMount() {
+    this.state.channelsRef.on('child_added', (snap) => {
+      this.setState({ channels: this.state.channels.concat(snap.val()) })
+    })
+  }
+
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value })
   }
@@ -20,9 +26,23 @@ class Channels extends React.Component {
     return channelName && channelDetails
   }
 
+  displayChannels = () =>
+    this.state.channels.length > 0 &&
+    this.state.channels.map((channel) => (
+      <Menu.Item
+        key={channel.id}
+        onClick={() => console.log(channel)}
+        name={channel.name}
+        style={{ opacity: 0.7 }}
+      >
+        # {channel.name}
+      </Menu.Item>
+    ))
+
   addChannel = () => {
     const { channelsRef, channelName, channelDetails } = this.state
 
+    channelsRef.push()
     const key = channelsRef.push().key
 
     const newChannel = {
@@ -71,7 +91,7 @@ class Channels extends React.Component {
             </span>{' '}
             ({channels.length}) <Icon name='add' onClick={this.openModal} />
           </Menu.Item>
-          {/* Channels */}
+          {this.displayChannels()}
         </Menu.Menu>
 
         {/* Add Channel Modal */}
