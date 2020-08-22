@@ -1,21 +1,23 @@
-import React from "react";
-import UserPanel from "./UserPanel";
-import { Menu } from "semantic-ui-react";
+import React from 'react'
+import UserPanel from './UserPanel'
+import { Menu } from 'semantic-ui-react'
 
 class SidePanel extends React.Component {
   render() {
+    const { currentUser } = this.props
+
     return (
       <Menu
-        size="large"
+        size='large'
         inverted
-        fixed="left"
+        fixed='left'
         vertical
-        style={{ background: "#4c3c4c", fontSize: "1.2rem" }}
+        style={{ background: '#4c3c4c', fontSize: '1.2rem' }}
       >
         <UserPanel />
       </Menu>
-    );
+    )
   }
 }
 
-export default SidePanel;
+export default SidePanel

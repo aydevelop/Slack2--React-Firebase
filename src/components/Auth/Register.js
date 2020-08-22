@@ -149,7 +149,7 @@ class Register extends React.Component {
               />
 
               <Button disabled={this.loading} color='orange' fluid size='large'>
-                {this.loading ? 'Submit' : 'Submit...'}
+                Submit
               </Button>
             </Segment>
           </Form>
