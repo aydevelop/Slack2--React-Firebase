@@ -59,6 +59,10 @@ class MessageForm extends React.Component {
     }
   }
 
+  uploadFile = (file, m) => {
+    console.log(file, m)
+  }
+
   render() {
     return (
       <Segment className='message__form'>
@@ -94,7 +98,11 @@ class MessageForm extends React.Component {
             onClick={this.openModal}
           />
         </Button.Group>
-        <FileModal modal={this.state.modal} closeModal={this.closeModal} />
+        <FileModal
+          modal={this.state.modal}
+          closeModal={this.closeModal}
+          uploadFile={this.uploadFile}
+        />
       </Segment>
     )
   }
