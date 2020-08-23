@@ -79,6 +79,7 @@ class MessageForm extends React.Component {
             content='Add Reply'
             labelPosition='left'
             icon='edit'
+            disabled={this.state.loading}
           />
           <Button
             color='teal'
