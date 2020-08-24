@@ -13,7 +13,7 @@ body,
 }
 
 .messages {
-  height: 440px;
+  height: 62vh;
   overflow-y: scroll;
 }
 
@@ -32,5 +32,9 @@ body,
 }
 
 .message__image {
-  padding: 2em;
+  padding: 1em;
+}
+
+.progress__bar {
+  margin: 0.3em 0 0 0 !important;
 }
