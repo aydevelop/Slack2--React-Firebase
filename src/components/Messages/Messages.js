@@ -1,5 +1,5 @@
 import React from 'react'
-import { Segment, Comment } from 'semantic-ui-react'
+import { Segment, Comment, Accordion } from 'semantic-ui-react'
 import firebase from '../../firebase'
 
 import MessagesHeader from './MessagesHeader'
@@ -14,6 +14,9 @@ class Messages extends React.Component {
     messages: [],
     messagesLoading: true,
     numUniqueUsers: 0,
+    searchTerm: '',
+    searchLoading: false,
+    searchResults: [],
   }
 
   componentDidMount() {
@@ -47,8 +50,8 @@ class Messages extends React.Component {
     this.setState({ numUniqueUsers })
   }
 
-  displayMsg = () => {
-    return this.state.messages.map((msg, i) => {
+  displayMsg = (messages) => {
+    return messages.map((msg, i) => {
       return (
         <Message key={msg.timestamp + i} message={msg} user={this.state.user} />
       )
@@ -57,17 +60,49 @@ class Messages extends React.Component {
 
   displayChannelName = (channel) => (channel ? `#${channel.name}` : ``)
 
+  handleSearchMessages = (e) => {
+    const channelMessages = [...this.state.messages]
+    const regex = new RegExp(this.state.searchTerm, 'gi')
+
+    const searchResults = channelMessages.reduce((acc, msg) => {
+      if (
+        msg.content &&
+        (msg.content.match(regex) || msg.user.name.match(regex))
+      ) {
+        acc.push(msg)
+      }
+      return acc
+    }, [])
+
+    this.setState({ searchResults })
+  }
+
+  handleSearchChange = (e) => {
+    this.setState(
+      {
+        searchTerm: e.target.value,
+        searchLoading: true,
+      },
+      () => {
+        this.handleSearchMessages()
+      }
+    )
+  }
+
   render() {
     return (
       <React.Fragment>
         <MessagesHeader
           channelName={this.displayChannelName(this.state.channel)}
           numUniqueUsers={this.state.numUniqueUsers}
+          handleSearchChange={this.handleSearchChange}
         />
 
         <Segment>
           <Comment.Group className='messages'>
-            {this.displayMsg()}
+            {!this.state.searchTerm
+              ? this.displayMsg(this.state.messages)
+              : this.displayMsg(this.state.searchResults)}
           </Comment.Group>
         </Segment>
 
