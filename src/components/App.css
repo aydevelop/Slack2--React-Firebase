@@ -15,6 +15,8 @@ body,
 .messages {
   height: 62vh;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .message__form {

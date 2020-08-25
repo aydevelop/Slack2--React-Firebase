@@ -147,6 +147,7 @@ class MessageForm extends React.Component {
             disabled={this.state.loading}
           />
           <Button
+            disabled={this.state.uploadState == 'uploading'}
             color='teal'
             content='Upload Media'
             labelPosition='right'
