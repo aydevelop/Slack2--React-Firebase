@@ -52,7 +52,8 @@ class MessageForm extends React.Component {
     const msg = this.state.message
     if (msg) {
       this.setState({ loading: true })
-      this.props.messagesRef
+      this.props
+        .getMessagesRef()
         .child(this.state.channel.id)
         .push()
         .set(this.createMsg())
@@ -72,8 +73,8 @@ class MessageForm extends React.Component {
 
   uploadFile = (file, m) => {
     const path = this.state.channel.id
-    const ref = this.props.messagesRef
-    const filePath = `chat/public/${uuidv4()}.jpg`
+    const ref = this.props.getMessagesRef
+    const filePath = this.getPath() + `/${uuidv4()}.jpg`
 
     var metadata = {
       contentType: 'image/jpeg',
@@ -95,6 +96,7 @@ class MessageForm extends React.Component {
         filePut.snapshot.ref
           .getDownloadURL()
           .then((downloadUrl) => {
+            console.log(downloadUrl)
             this.sendFileMessage(downloadUrl, ref, path)
             this.setState({ percentUploaded: -1 })
           })
@@ -104,7 +106,8 @@ class MessageForm extends React.Component {
   }
 
   sendFileMessage = (fileURL, ref, pathToUpload) => {
-    ref
+    this.props
+      .getMessagesRef()
       .child(pathToUpload)
       .push()
       .set(this.createMsg(fileURL))
@@ -117,6 +120,14 @@ class MessageForm extends React.Component {
           errors: this.state.errors.concat(err),
         })
       })
+  }
+
+  getPath = () => {
+    if (this.props.isPrivateChannel) {
+      return `chat/private-${this.state.channel.id}`
+    } else {
+      return 'chat/public'
+    }
   }
 
   render() {
