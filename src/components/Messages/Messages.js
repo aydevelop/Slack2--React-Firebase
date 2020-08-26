@@ -21,6 +21,12 @@ class Messages extends React.Component {
     searchResults: [],
   }
 
+  componentWillUnmount() {
+    const { messagesRef, privateMessagesRef } = this.state
+    messagesRef.off()
+    privateMessagesRef.off()
+  }
+
   componentDidMount() {
     const { channel, messages, messagesLoading, user } = this.state
     if (!channel || !user) {
