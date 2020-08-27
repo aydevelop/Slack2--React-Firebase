@@ -40,19 +40,6 @@ class MetaPanel extends React.Component {
           </Accordion.Content>
 
           <Accordion.Title
-            active={activeIndex === 1}
-            index={1}
-            onClick={this.setActiveIndex}
-          >
-            <Icon name='dropdown' />
-            <Icon name='user circle' />
-            Top Posters
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 1}>
-            posters
-          </Accordion.Content>
-
-          <Accordion.Title
             active={activeIndex === 2}
             index={2}
             onClick={this.setActiveIndex}

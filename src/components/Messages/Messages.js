@@ -167,9 +167,9 @@ class Messages extends React.Component {
     if (flag) {
       return (
         <React.Fragment>
+          {/* <Skeleton />
           <Skeleton />
-          <Skeleton />
-          <Skeleton />
+          <Skeleton /> */}
         </React.Fragment>
       )
     }

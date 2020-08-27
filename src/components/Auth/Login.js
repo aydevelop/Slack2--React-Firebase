@@ -27,13 +27,12 @@ class Login extends React.Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => {
-        console.log(user)
+        this.setState({ loading: false })
       })
       .catch((err) => {
         const error = { msg: err?.message }
         this.setState({ errors: error })
       })
-      .finally(this.setState({ loading: false }))
   }
 
   render() {

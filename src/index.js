@@ -21,7 +21,7 @@ class Root extends React.Component {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.props.setUser(user)
-        this.props.history.push('/')
+        setTimeout(() => this.props.history.push('/'), 500)
       } else {
         this.props.setLoading(true)
         this.props.history.push('/login')

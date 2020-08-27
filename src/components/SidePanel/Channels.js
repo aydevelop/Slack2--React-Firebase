@@ -205,7 +205,12 @@ class Channels extends React.Component {
             <span>
               <Icon name='exchange' /> CHANNELS
             </span>{' '}
-            ({channels.length}) <Icon name='add' onClick={this.openModal} />
+            ({channels.length}){' '}
+            <Icon
+              style={{ cursor: 'pointer' }}
+              name='add'
+              onClick={this.openModal}
+            />
           </Menu.Item>
           {this.displayChannels()}
         </Menu.Menu>

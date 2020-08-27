@@ -140,7 +140,7 @@ class UserPanel extends React.Component {
               trigger={
                 <span>
                   <Image
-                    src={this.state.user?.photoURL}
+                    src={this.state.user && this.state.user.photoURL}
                     spaced='right'
                     avatar
                   />
