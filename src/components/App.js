@@ -12,7 +12,6 @@ function App(props) {
   return (
     <div className='app'>
       <Grid columns='equal' style={{ background: '#eee' }}>
-        <ColorPanel />
         <SidePanel
           key={props.currentUser && props.currentUser.uid}
           currentUser={props.currentUser}
