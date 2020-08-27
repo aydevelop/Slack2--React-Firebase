@@ -5,6 +5,7 @@ import firebase from '../../firebase'
 import MessagesHeader from './MessagesHeader'
 import MessageForm from './MessageForm'
 import Message from './Message'
+import Skeleton from './Skeleton'
 
 class Messages extends React.Component {
   state = {
@@ -21,6 +22,7 @@ class Messages extends React.Component {
     searchResults: [],
     isChannelStarred: false,
     usersRef: firebase.database().ref('users'),
+    messagesLoading: true,
   }
 
   componentWillUnmount() {
@@ -159,6 +161,20 @@ class Messages extends React.Component {
     )
   }
 
+  displayMessageSkeleton = () => {
+    const flag = this.state.messagesLoading
+
+    if (flag) {
+      return (
+        <React.Fragment>
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+        </React.Fragment>
+      )
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.messagesEnd) {
       this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
@@ -179,6 +195,7 @@ class Messages extends React.Component {
 
         <Segment>
           <Comment.Group className='messages'>
+            {this.displayMessageSkeleton()}
             {!this.state.searchTerm
               ? this.displayMsg(this.state.messages)
               : this.displayMsg(this.state.searchResults)}
