@@ -12,6 +12,10 @@ body,
   color: red !important;
 }
 
+.emojipicker {
+  position: absolute;
+}
+
 .messages {
   height: 62vh;
   overflow-y: scroll;
