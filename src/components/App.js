@@ -28,6 +28,7 @@ function App(props) {
         <Grid.Column width={4}>
           <MetaPanel
             key={props.currentChannel && props.currentChannel.id}
+            currentChannel={props.currentChannel}
             isPrivateChannel={props.isPrivateChannel}
           />
         </Grid.Column>
