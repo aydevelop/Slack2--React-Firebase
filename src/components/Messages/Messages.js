@@ -159,6 +159,12 @@ class Messages extends React.Component {
     )
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.messagesEnd) {
+      this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -176,6 +182,7 @@ class Messages extends React.Component {
             {!this.state.searchTerm
               ? this.displayMsg(this.state.messages)
               : this.displayMsg(this.state.searchResults)}
+            <div ref={(node) => (this.messagesEnd = node)}></div>
           </Comment.Group>
         </Segment>
 
