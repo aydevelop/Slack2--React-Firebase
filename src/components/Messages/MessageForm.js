@@ -16,6 +16,7 @@ class MessageForm extends React.Component {
     channel: this.props.currentChannel,
     user: this.props.currentUser,
     messagesRef: firebase.database().ref('messages'),
+    typingRef: firebase.database().ref('typing'),
     errors: [],
     modal: false,
   }
@@ -130,11 +131,20 @@ class MessageForm extends React.Component {
     }
   }
 
+  handleKeyDown = () => {
+    const { message, typingRef, channel, user } = this.state
+
+    if (message) {
+      //typingRef.child(channel.id).child(user.uid).set(user.displayName)
+    }
+  }
+
   render() {
     return (
       <Segment className='message__form'>
         <Input
           onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
           fluid
           name='message'
           style={{ marginBottom: '0.7em' }}

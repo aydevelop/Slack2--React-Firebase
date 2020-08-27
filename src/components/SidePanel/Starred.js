@@ -75,10 +75,10 @@ class Starred extends React.Component {
     const { starredChannels } = this.state
 
     return (
-      <Menu.Menu style={{ marginTop: '30px' }} className='menu'>
+      <Menu.Menu style={{ marginTop: '25px' }} className='menu'>
         <Menu.Item>
           <span>
-            <Icon name='star' /> STARRED
+            <Icon name='star' /> STARRED CHANNELS
           </span>{' '}
           ({starredChannels.length})
         </Menu.Item>
